@@ -67,14 +67,6 @@ class ExchangeRateViewController: UIViewController {
         activityIndicator.isHidden = !show
         activityIndicator.startAnimating()
     }
-    @IBAction func tappedChangeCurrency(_ sender: Any) {
-        if let fromCurrency = fromCurrencyLabel.text {
-            let save = fromCurrency
-            fromCurrencyLabel.text = toCurrencyLabel.text
-            toCurrencyLabel.text = save
-        }
-        
-    }
     func presentAlert(message : String)  {
         let alertVc = UIAlertController(title: "Error", message: message , preferredStyle: .alert)
         alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
