@@ -62,5 +62,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>fixer.io</key>
+			<string>http://data.fixer.io/api/latest?access_key=91d269752abd205689d4d4c31fff86c6r</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
