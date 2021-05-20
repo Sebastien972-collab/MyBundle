@@ -8,69 +8,99 @@
 import UIKit
 
 class ExchangeRateViewController: UIViewController {
-    @IBOutlet weak var exchangeTextField: UITextField!
-    @IBOutlet weak var exchangedAmountLabel: UILabel!
-    @IBOutlet weak var exchangeButton: UIButton!
-    @IBOutlet weak var fromCurrencyLabel: UILabel!
-    @IBOutlet weak var toCurrencyLabel: UILabel!
-    @IBOutlet weak var rateChange: UILabel!
-    var rate : Double = 0
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    @IBAction func tappedExchangeButton(_ sender: Any) {
-        toggleActivityIndicatore(show: true)
-        guard let fromCurrency = fromCurrencyLabel.text else {
-            presentAlert(message: "Nous avons rencontrer un probleme lors de la selection de la devise de depart")
-            return
-        }
-        guard let toCurrency = toCurrencyLabel.text else {
-            presentAlert(message: "Nous avons rencontrer un probleme lors de la selection de la devise final")
-            return
-        }
-        print("Les currency...>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        print(fromCurrency)
-        print(toCurrency)
-        ExchangeService.shared.getExchangeAmount(toCurrency: toCurrency) { success, amountRate in
-            self.toggleActivityIndicatore(show: false)
-            if success{
-                print("On essaye de l'afficher")
-                print(amountRate.rates[toCurrency]!)
-                self.rate = amountRate.rates[toCurrency]!
-                self.uptdateView()
+    @IBOutlet weak private var exchangeTextField: UITextField!
+    @IBOutlet weak private var exchangedAmountLabel: UILabel!
+    @IBOutlet weak private var exchangeButton: UIButton!
+    @IBOutlet weak private var fromCurrencyLabel: UILabel!
+    @IBOutlet weak private var rateChange: UILabel!
+    private var rate : Double = 0
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var currencyPickerView: UIPickerView!
+    @IBOutlet weak var changeCurrencyButton: UIButton!
+    var currencys = Currency.currencys
+    var rowCurrency = 0
+    var fromEur = true {
+        didSet{
+            guard let fromCurrency = fromCurrencyLabel.text else {
+                return
             }
+            if !fromEur {
+                let saveElement = currencys[rowCurrency]
+                currencys.removeAll()
+                currencys.append(fromCurrency)
+                fromCurrencyLabel.text = saveElement
+                
+            } else {
+                fromCurrencyLabel.text = "EUR"
+                currencys = Currency.currencys
+            }
+            currencyPickerView.reloadAllComponents()
+    
         }
-        
-        
     }
-    @IBAction func dissmissKeyboard(_ sender: Any) {
+    
+    override internal func viewDidLoad() {
+        super.viewDidLoad()
+        activityIndicator.isHidden = true
+    }
+    
+    
+    @IBAction private func tappedExchangeButton(_ sender: Any) {
+        Utils.toggleActivityIndicator(button: exchangeButton, show: true, activityIndicator: activityIndicator)
+        let indexToCurrency = currencyPickerView.selectedRow(inComponent: 0)
+        var toCurrency = currencys[indexToCurrency]
+        if !fromEur {
+            guard let fromCurrency = fromCurrencyLabel.text else {
+                return present(Utils.presentAlert(message: "Can't find from currency"), animated: true, completion: nil)
+            }
+            toCurrency = fromCurrency
+        }
+        ExchangeService.shared.getExchangeAmount(toCurrency: toCurrency) { success, amountRate in
+            Utils.toggleActivityIndicator(button: self.exchangeButton, show: false, activityIndicator: self.activityIndicator)
+            guard success else {
+                return self.present(Utils.presentAlert(message: "Exchange rate not found "), animated: true, completion: nil)
+            }
+            print(amountRate.rates[toCurrency]!)
+            self.rate = amountRate.rates[toCurrency]!
+            self.uptdateView()
+        }
+    }
+    @IBAction private func dissmissKeyboard(_ sender: Any) {
         exchangeTextField.resignFirstResponder()
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBAction func tappedExchangeRateButton(_ sender: Any) {
+        fromEur.toggle()
     }
+    
     private func uptdateView() {
+        if !fromEur {
+            rate = 1 / rate
+            print("Nouvelle rate: \n    \(rate  )")
+        }
         rateChange.text = "\(Double(round(100 * rate) / 100))"
         guard let amountToCovert = Double(exchangeTextField.text!) else {
-            print("Pas de montant a convertir ")
-            return
+            return 
         }
         let amountConvert = amountToCovert * rate
         print(amountConvert)
         exchangedAmountLabel.text = "\(Double(round(100 * amountConvert) / 100))"
         print(Double(round(100 * amountConvert) / 100))
     }
-    private func toggleActivityIndicatore(show: Bool) {
-        exchangeButton.isHidden = show
-        activityIndicator.isHidden = !show
-        activityIndicator.startAnimating()
+    
+    
+}
+extension ExchangeRateViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+    internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
-    func presentAlert(message : String)  {
-        let alertVc = UIAlertController(title: "Error", message: message , preferredStyle: .alert)
-        alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alertVc, animated: true, completion: nil)
-        
+    
+    internal func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currencys.count
+    }
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return currencys[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        rowCurrency = row
     }
 }

@@ -18,9 +18,9 @@ class ExchangeService {
     private init(){}
     private var task : URLSessionTask?
     
-     func getExchangeAmount(toCurrency: String, callback: @escaping (Bool, RateJsonDecode) -> Void){
+      func getExchangeAmount(toCurrency: String, callback: @escaping (Bool, RateJsonDecode) -> Void){
         let baseUrl = URL(string: "http://data.fixer.io/api/latest?access_key=91d269752abd205689d4d4c31fff86c6&base=EUR&symbols=\(toCurrency)")!
-        var request = URLRequest(url: baseUrl)
+        let request = URLRequest(url: baseUrl)
 //        request.httpBody = body.data(using: .utf8)
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: request) { data, response , error in
@@ -52,8 +52,5 @@ class ExchangeService {
             
         }
         task.resume()
-        
-        
-        
     }
 }

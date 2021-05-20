@@ -72,5 +72,16 @@
 			<string>http://data.fixer.io/api/latest?access_key=91d269752abd205689d4d4c31fff86c6r</string>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Veuillez acceptez pour afficher la meteo de votre position</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Veuillez acceptez pour afficher la meteo de votre position</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FiraSans-BlackItalic.ttf</string>
+		<string>FiraSans-Black.ttf</string>
+		<string>FiraSans-Regular.ttf</string>
+		<string>FiraSans-Light.ttf</string>
+	</array>
 </dict>
 </plist>
