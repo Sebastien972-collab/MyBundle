@@ -25,7 +25,7 @@ class WeatherServiceTest: XCTestCase {
         
     }
     func testGetWeatherPostFailedCallBackIFResponseKO() {
-        let weatheService = WeatherService(session: URLSessionFake(data: nil, response: FakeWeatherService.responseKO, responseError: FakeWeatherService.error))
+        let weatheService = WeatherService(session: URLSessionFake(data: nil, response: URLResponseFake.responseKO, responseError: FakeWeatherService.error))
         
         let expactation = XCTestExpectation(description: "Wait for queue change")
         
@@ -39,7 +39,7 @@ class WeatherServiceTest: XCTestCase {
         }
     }
     func testGetWeatherPostFailedCallBackIFResponseOK() {
-        let weatheService = WeatherService(session: URLSessionFake(data: nil, response: FakeWeatherService.responseOK, responseError: FakeWeatherService.error))
+        let weatheService = WeatherService(session: URLSessionFake(data: nil, response: URLResponseFake.responseOK, responseError: FakeWeatherService.error))
         
         let expactation = XCTestExpectation(description: "Wait for queue change")
         
@@ -55,7 +55,7 @@ class WeatherServiceTest: XCTestCase {
     }
     func testGetWeatherPostSuccessCallBack() {
         
-        let weatheService = WeatherService(session: URLSessionFake(data: FakeWeatherService.weatherCorrect, response: FakeWeatherService.responseOK, responseError: nil))
+        let weatheService = WeatherService(session: URLSessionFake(data: FakeWeatherService.weatherCorrect, response: URLResponseFake.responseOK, responseError: nil))
         
         let expactation = XCTestExpectation(description: "Wait for queue change")
         

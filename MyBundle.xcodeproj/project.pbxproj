@@ -36,6 +36,11 @@
 		8BCF0B072638474D00FE35C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BCF0B052638474D00FE35C1 /* Main.storyboard */; };
 		8BCF0B092638475200FE35C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BCF0B082638475200FE35C1 /* Assets.xcassets */; };
 		8BCF0B0C2638475200FE35C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BCF0B0A2638475200FE35C1 /* LaunchScreen.storyboard */; };
+		8BE54DC62672626900618E45 /* FakeExchangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54DC52672626900618E45 /* FakeExchangeService.swift */; };
+		8BE54DC8267262D000618E45 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54DC7267262D000618E45 /* Helpers.swift */; };
+		8BE54DCC2672641A00618E45 /* FakeExchangeData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BE54DCB2672641A00618E45 /* FakeExchangeData.json */; };
+		8BE54DD0267265CB00618E45 /* ExchangeServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54DCF267265CB00618E45 /* ExchangeServiceTest.swift */; };
+		8BE54DD226726D2500618E45 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54DD126726D2500618E45 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +87,11 @@
 		8BCF0B082638475200FE35C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BCF0B0B2638475200FE35C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BCF0B0D2638475200FE35C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BE54DC52672626900618E45 /* FakeExchangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeExchangeService.swift; sourceTree = "<group>"; };
+		8BE54DC7267262D000618E45 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		8BE54DCB2672641A00618E45 /* FakeExchangeData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FakeExchangeData.json; sourceTree = "<group>"; };
+		8BE54DCF267265CB00618E45 /* ExchangeServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeServiceTest.swift; sourceTree = "<group>"; };
+		8BE54DD126726D2500618E45 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,11 +171,11 @@
 		8BA747B126664C3D0091E171 /* MyBundleTests */ = {
 			isa = PBXGroup;
 			children = (
+				8BE54DC42672623500618E45 /* ExchangeServiceTest */,
+				8BE54DC32672617E00618E45 /* WeatherServiceTest */,
 				8BA747B426664C3D0091E171 /* Info.plist */,
-				8BBA84C3267207AE00A05CE6 /* WeatherServiceTest.swift */,
-				8BA747BB26664E120091E171 /* FakeWeather.json */,
-				8BA747BD26664EE60091E171 /* FakeWeatherService.swift */,
 				8BBA84C12671FBBE00A05CE6 /* URLSessionFake.swift */,
+				8BE54DC7267262D000618E45 /* Helpers.swift */,
 			);
 			path = MyBundleTests;
 			sourceTree = "<group>";
@@ -208,6 +218,7 @@
 				8B47B6CE2639D24E004E0DC6 /* Weather */,
 				8B47B6CD2639D239004E0DC6 /* Translate Files */,
 				8B47B6CB2639D202004E0DC6 /* Exchange Files  */,
+				8BE54DD126726D2500618E45 /* Helpers.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,6 +254,26 @@
 				8BCF0AFF2638474D00FE35C1 /* AppDelegate.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8BE54DC32672617E00618E45 /* WeatherServiceTest */ = {
+			isa = PBXGroup;
+			children = (
+				8BBA84C3267207AE00A05CE6 /* WeatherServiceTest.swift */,
+				8BA747BB26664E120091E171 /* FakeWeather.json */,
+				8BA747BD26664EE60091E171 /* FakeWeatherService.swift */,
+			);
+			path = WeatherServiceTest;
+			sourceTree = "<group>";
+		};
+		8BE54DC42672623500618E45 /* ExchangeServiceTest */ = {
+			isa = PBXGroup;
+			children = (
+				8BE54DC52672626900618E45 /* FakeExchangeService.swift */,
+				8BE54DCB2672641A00618E45 /* FakeExchangeData.json */,
+				8BE54DCF267265CB00618E45 /* ExchangeServiceTest.swift */,
+			);
+			path = ExchangeServiceTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BA747BC26664E120091E171 /* FakeWeather.json in Resources */,
+				8BE54DCC2672641A00618E45 /* FakeExchangeData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,9 +384,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BE54DD0267265CB00618E45 /* ExchangeServiceTest.swift in Sources */,
 				8BBA84C22671FBBE00A05CE6 /* URLSessionFake.swift in Sources */,
 				8BBA84C4267207AE00A05CE6 /* WeatherServiceTest.swift in Sources */,
 				8BA747BE26664EE60091E171 /* FakeWeatherService.swift in Sources */,
+				8BE54DC8267262D000618E45 /* Helpers.swift in Sources */,
+				8BE54DC62672626900618E45 /* FakeExchangeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +412,7 @@
 				8BBDC68B263AC8AC00765DA3 /* CountryAvailable.swift in Sources */,
 				8B6B68812638623600D416AA /* TranslateViewController.swift in Sources */,
 				8B988309263C63950066B6EF /* Utils.swift in Sources */,
+				8BE54DD226726D2500618E45 /* Helpers.swift in Sources */,
 				8B94492C2656AAEB00DD3DBC /* Language.swift in Sources */,
 				8BCF0B002638474D00FE35C1 /* AppDelegate.swift in Sources */,
 				8B944922265693B500DD3DBC /* TranslateLangageAvailable.swift in Sources */,

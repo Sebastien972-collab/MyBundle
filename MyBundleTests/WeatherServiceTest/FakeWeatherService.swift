@@ -7,9 +7,6 @@
 
 import Foundation
 class FakeWeatherService {
-    static let responseOK = HTTPURLResponse(url: URL(string: "htppp://fakeurl")!, statusCode: 200, httpVersion: nil, headerFields: nil)
-    static let responseKO = HTTPURLResponse(url: URL(string: "htppp://fakeurl")!, statusCode: 500, httpVersion: nil, headerFields: nil)
-    
     class WeatherError : Error {}
     static let error = WeatherError()
     
