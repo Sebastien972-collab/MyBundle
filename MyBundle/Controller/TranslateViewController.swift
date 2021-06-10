@@ -7,9 +7,9 @@
 
 import UIKit
 class TranslateViewController: UIViewController {
-    @IBOutlet weak var fromExpression: UITextField!
-    @IBOutlet weak var toExpression: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak private var fromExpression: UITextField!
+    @IBOutlet weak private var toExpression: UITextField!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {

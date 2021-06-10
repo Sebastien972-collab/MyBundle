@@ -16,10 +16,10 @@ class ExchangeRateViewController: UIViewController {
     private var rate : Double = 0
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak private var currencyPickerView: UIPickerView!
-    @IBOutlet weak var changeCurrencyButton: UIButton!
-    var currencys = Currency.currencys
-    var rowCurrency = 0
-    var fromEur = true {
+    @IBOutlet weak private var changeCurrencyButton: UIButton!
+    private var currencys = Currency.currencys
+    private var rowCurrency = 0
+    private var fromEur = true {
         didSet{
             guard let fromCurrency = fromCurrencyLabel.text else {
                 return
@@ -55,8 +55,11 @@ class ExchangeRateViewController: UIViewController {
             }
             toCurrency = fromCurrency
         }
-        ExchangeService.shared.getExchangeAmount(toCurrency: toCurrency) { success, amountRate in
+        ExchangeService.shared.getExchangeAmount(toCurrency: toCurrency) { success, amountRate, error  in
             Utils.toggleActivityIndicator(button: self.exchangeButton, show: false, activityIndicator: self.activityIndicator)
+            guard success, error == nil, let amountRate = amountRate else {
+                return self.present(Utils.presentAlert(message: error?.localizedDescription ?? "Unknown error"), animated: true, completion: nil)
+            }
             guard success else {
                 return self.present(Utils.presentAlert(message: "Exchange rate not found "), animated: true, completion: nil)
             }
@@ -68,14 +71,13 @@ class ExchangeRateViewController: UIViewController {
     @IBAction private func dissmissKeyboard(_ sender: Any) {
         exchangeTextField.resignFirstResponder()
     }
-    @IBAction func tappedExchangeRateButton(_ sender: Any) {
+    @IBAction private func tappedExchangeRateButton(_ sender: Any) {
         fromEur.toggle()
     }
     
     private func uptdateView() {
         if !fromEur {
             rate = 1 / rate
-            print("Nouvelle rate: \n    \(rate  )")
         }
         rateChange.text = "\(Double(round(100 * rate) / 100))"
         guard let amountToCovert = Double(exchangeTextField.text!) else {
@@ -86,8 +88,6 @@ class ExchangeRateViewController: UIViewController {
         exchangedAmountLabel.text = "\(Double(round(100 * amountConvert) / 100))"
         print(Double(round(100 * amountConvert) / 100))
     }
-    
-    
 }
 extension ExchangeRateViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -100,7 +100,7 @@ extension ExchangeRateViewController : UIPickerViewDelegate, UIPickerViewDataSou
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return currencys[row]
     }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         rowCurrency = row
     }
 }

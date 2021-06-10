@@ -1,0 +1,44 @@
+{
+    "coord": {
+        "lon": -61,
+        "lat": 14.6667
+    },
+    "weather": [
+        {
+            "id": 803,
+            "main": "Clouds",
+            "description": "nuageux",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 27.95,
+        "feels_like": 27.15,
+        "temp_min": 27.95,
+        "temp_max": 29.72,
+        "pressure": 1017,
+        "humidity": 32
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 1.34,
+        "deg": 309,
+        "gust": 5.81
+    },
+    "clouds": {
+        "all": 75
+    },
+    "dt": 1622125946,
+    "sys": {
+        "type": 2,
+        "id": 19942,
+        "country": "MQ",
+        "sunrise": 1622108049,
+        "sunset": 1622154514
+    },
+    "timezone": -14400,
+    "id": 3570311,
+    "name": "Martinique",
+    "cod": 200
+}

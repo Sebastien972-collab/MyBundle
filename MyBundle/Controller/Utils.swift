@@ -27,7 +27,7 @@ struct Utils {
         descriptionArray[0] = descriptionArray[0].uppercased().first!
         return String(descriptionArray)
     }
-    static func uptdateTemperatureImage(temps : Double,temperatureImageView : UIImageView ) {
+    static func uptdateTemperatureImage(temps : Double,temperatureImageView : UIImageView) {
         switch temps {
         case  0...10 :
             temperatureImageView.image = #imageLiteral(resourceName: "hiver")
@@ -43,6 +43,21 @@ struct Utils {
         let alertVc = UIAlertController(title: "Error", message: message , preferredStyle: .alert)
         alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return alertVc
+    }
+    static private func disableButton(button : UIButton) {
+        button.isEnabled = false
+        button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    static func diseableButtonWithAnimation(animation : Bool, button : UIButton) {
+        if animation {
+            UIView.animate(withDuration: 1.5) {
+                button.shake()
+                disableButton(button: button)
+            }
+        }else {
+            disableButton(button: button)
+        }
     }
 }
 

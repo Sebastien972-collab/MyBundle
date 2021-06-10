@@ -13,12 +13,17 @@ class FavoriteWeatherViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak private var favoriteContryPickerView: UIPickerView!
     @IBOutlet weak private var removeButton: UIButton!
     @IBOutlet weak private var temperatureImageView: UIImageView!
-    private var favoriteCity = FavoriteCity.all
+    private var favoriteCity = FavoriteCity.all {
+        willSet {
+            if newValue.count == 0 {
+                navigationController?.popViewController(animated: true)
+            }
+        }
+    }
     @IBOutlet weak var imageCityImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        removeButton.isEnabled = true
         showWeather()
     }
     internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -55,9 +60,9 @@ class FavoriteWeatherViewController: UIViewController, UIPickerViewDelegate, UIP
         let indexToCity = favoriteContryPickerView.selectedRow(inComponent: 0)
         let toCity = FavoriteCity.all[indexToCity].nameFavoriteCity
         let toCountry = FavoriteCity.all[indexToCity].nameOfFlag
-        WeatherService.shared.getWeather(city: toCity!, fromCountry: toCountry!) { success, weather , description in
-            guard success else {
-                return self.present(Utils.presentAlert(message: "Weather not found"), animated: true, completion: nil)
+        WeatherService.shared.getWeather(city: toCity!, fromCountry: toCountry!) { success, error,  weather , description in
+            guard success, error == nil, let weather = weather, let description = description else {
+                return self.present(Utils.presentAlert(message: error!.localizedDescription), animated: true, completion: nil)
             }
             guard let temp = weather.main["temp"] else {
                 return

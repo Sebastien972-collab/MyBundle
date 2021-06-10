@@ -9,14 +9,19 @@ import Foundation
 
 struct Weather : Codable {
     var main : [String : Double]
-    
 }
+
 class WeatherService {
     static var shared = WeatherService()
     private init(){}
     private var task : URLSessionTask?
+    private var session = URLSession(configuration: .default)
     
-    func getWeather(city : String, fromCountry: String, callback : @escaping (Bool, Weather, String) -> Void) {
+    init(session : URLSession) {
+        self.session = session
+    }
+    
+    func getWeather(city : String, fromCountry: String, callback : @escaping (Bool, Error? , Weather?, String?) -> Void) {
         var cityArray = Array(city)
         var cityCleaned = city
         if city.contains(" ") {
@@ -31,21 +36,15 @@ class WeatherService {
         }
         let baseUrl = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=\(cityCleaned),\(fromCountry)&APPID=1d0946f4656aca3e5708d246a3c7ba87&lang=fr&units=metric")!
         let request = URLRequest(url: baseUrl)
-        let session = URLSession(configuration: .default)
         let task = session.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    print("Il y'a une errur ou oil n'y a pas de data ")
-                    return
+                guard let data = data, error == nil, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                    return callback(false, error, nil,nil)
                 }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    print("Reponse ou status code non valide ")
-                    return
-                }
+        
                 let decoder = JSONDecoder()
                 guard let json = String(data: data, encoding: .utf8) else{
-                    print("String non decode")
-                    return
+                    return callback(false, nil, nil , "String non decode")
                 }
                 
                 print("lE JSONNNN ::: >>>>>>>>>>>>> \(json)")
@@ -55,12 +54,12 @@ class WeatherService {
                 }
                 print("Le decodage est passe")
                 print("Temperature ressenti ")
-                callback(true, product, self.recup(json: json))
+                callback(true,nil, product, self.recup(json: json))
             }
         }
         task.resume()
     }
-    func recup(json : String) -> String {
+    private func recup(json : String) -> String {
         let arrayJson = json.split(separator: ",")
         var description = " "
         for (index, _) in arrayJson.enumerated() {

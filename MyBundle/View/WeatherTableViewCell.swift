@@ -31,10 +31,15 @@ class WeatherTableViewCell: UITableViewCell {
     }
     @IBAction func tappedGoToWeatherCityButton(_ sender: Any) {
     }
+    
     func configure(title : String, subtitle : String, imageName : String, isFavorite : Bool) {
         titleLabel.text = title
         subTitleLabel.text = subtitle
-        iconImageView.image = UIImage(named: imageName) ?? UIImage(systemName: "cloud")
+        if #available(iOS 13.0, *) {
+            iconImageView.image = UIImage(named: imageName) ?? UIImage(systemName: "cloud")
+        } else {
+            // Fallback on earlier versions
+        }
         addToFavoris.isHidden = !isFavorite
     }
 }
