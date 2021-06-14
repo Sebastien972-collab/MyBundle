@@ -8,10 +8,7 @@
 import Foundation
 
 class City {
-    static let shared = City()
-    private init(){}
-    
-    let city : [(city: String, country: String )] = [("Paris" , "fr"),
+    static let citys : [(city: String, country: String )] = [("Paris" , "fr"),
                                                      ("Montargis" , "fr") ,
                                                      ("Martinique" , "mq"),
                                                      ("Guadeloupe","gp"),

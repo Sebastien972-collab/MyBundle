@@ -8,11 +8,13 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-    @IBOutlet weak var deviseSegmentedControls: UISegmentedControl!
-    @IBOutlet weak var langageSegmentedControls: UISegmentedControl!
-    var row = 0
-    let userDefault = UserDefaults.standard
-    var citys =  City.shared.city
+    @IBOutlet weak private  var deviseSegmentedControls: UISegmentedControl!
+    @IBOutlet weak private var langageSegmentedControls: UISegmentedControl!
+    @IBOutlet weak private var languagePreference: UIPickerView!
+    private var row = 0
+    private let userDefault = UserDefaults.standard
+    private var languages =  LanguageAvailable.language
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if !userDefault.bool(forKey: "fromEur") {
@@ -21,12 +23,14 @@ class SettingsViewController: UIViewController {
         
     }
     @IBAction func tappedSaveSettings(_ sender: Any) {
+        
         let deviceSelection = deviseSegmentedControls.selectedSegmentIndex
         if deviceSelection == 0 {
             userDefault.set(true, forKey: "fromEur")
         }else {
             userDefault.set(false, forKey: "fromEur")
         }
+        userDefault.set(row, forKey: "FavoriteLanguageRow")
     }
     
 }
@@ -36,10 +40,10 @@ extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource 
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return citys.count
+        return languages.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return citys[row].city
+        return languages[row].langage
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.row = row

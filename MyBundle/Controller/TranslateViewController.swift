@@ -15,10 +15,14 @@ class TranslateViewController: UIViewController {
     @IBOutlet weak private var toLangagePickerView: UIPickerView!
     @IBOutlet weak private var swapLangageButton: UIButton!
     private var langages = LanguageAvailable.language
+    let userDefault = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.isHidden.toggle()
+        print(userDefault.integer(forKey: "FavoriteLanguageRow"))
+    }
+    override func viewWillAppear(_ animated: Bool) {                                       
     }
     @IBAction func tappedTranslateButtton(_ sender: Any) {
         Utils.toggleActivityIndicator(button: translateButton, show: true, activityIndicator: activityIndicator)

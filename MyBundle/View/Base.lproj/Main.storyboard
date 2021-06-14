@@ -206,7 +206,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-7.6923076923076916" y="-816.11374407582935"/>
+            <point key="canvasLocation" x="-9" y="-816"/>
         </scene>
         <!--Météo-->
         <scene sceneID="qT8-iu-ZaA">
@@ -292,7 +292,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Y33-mC-WGW">
                                         <rect key="frame" x="0.0" y="385.33333333333331" width="358" height="192.66666666666669"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Votre ville préférée" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtQ-cj-8hz">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Votre langue préférée" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtQ-cj-8hz">
                                                 <rect key="frame" x="0.0" y="0.0" width="358" height="20.333333333333332"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20.333333333333332" id="4OP-U8-Ok3"/>
@@ -304,8 +304,8 @@
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUo-J2-kwM">
                                                 <rect key="frame" x="0.0" y="40.333333333333314" width="358" height="152.33333333333334"/>
                                                 <connections>
-                                                    <outlet property="dataSource" destination="OzH-Eg-YIm" id="gcX-JN-pIV"/>
-                                                    <outlet property="delegate" destination="OzH-Eg-YIm" id="9Ha-OD-8Ba"/>
+                                                    <outlet property="dataSource" destination="OzH-Eg-YIm" id="1Pf-rh-MEl"/>
+                                                    <outlet property="delegate" destination="OzH-Eg-YIm" id="Xly-ep-c8L"/>
                                                 </connections>
                                             </pickerView>
                                         </subviews>
@@ -330,11 +330,12 @@
                     <connections>
                         <outlet property="deviseSegmentedControls" destination="rFe-OB-VkS" id="NfS-7b-cjL"/>
                         <outlet property="langageSegmentedControls" destination="Cln-D3-aAA" id="1ha-34-BrI"/>
+                        <outlet property="languagePreference" destination="uUo-J2-kwM" id="beo-sO-iR2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOC-2W-Apb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7.6923076923076916" y="2228.6729857819905"/>
+            <point key="canvasLocation" x="-9" y="2231"/>
         </scene>
         <!--Les villes-->
         <scene sceneID="LaI-Nb-ayY">
@@ -562,7 +563,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GN6-4V-qF4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953.62318840579712" y="784.82142857142856"/>
+            <point key="canvasLocation" x="997" y="785"/>
         </scene>
         <!--Setting-->
         <scene sceneID="fls-wE-yXm">
@@ -839,7 +840,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-183.07692307692307" y="22.748815165876778"/>
+            <point key="canvasLocation" x="-8" y="23"/>
         </scene>
     </scenes>
     <resources>

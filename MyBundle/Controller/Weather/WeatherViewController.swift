@@ -10,6 +10,8 @@ import UIKit
 class WeatherViewController: UIViewController{
     @IBOutlet weak private var citysTableView: UITableView!
     @IBOutlet weak private var goToFavorisButton: UIButton!
+    let citys = City.citys
+    
     override internal func viewDidLoad() {
         super.viewDidLoad()
         goToFavorisButton.isEnabled = !FavoriteCity.all.isEmpty
@@ -27,8 +29,8 @@ extension WeatherViewController: UITableViewDelegate{
     }
     override internal func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? CityWeatherViewController {
-            destination.city = City.shared.city[citysTableView.indexPathForSelectedRow!.row].city
-            destination.country =  City.shared.city[citysTableView.indexPathForSelectedRow!.row].country 
+            destination.city = citys[citysTableView.indexPathForSelectedRow!.row].city
+            destination.country =  citys[citysTableView.indexPathForSelectedRow!.row].country
         }
     }
 }
@@ -37,7 +39,7 @@ extension WeatherViewController : UITableViewDataSource{
         return 1
     }
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return City.shared.city.count
+        return citys.count
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,12 +49,12 @@ extension WeatherViewController : UITableViewDataSource{
         var isFavorite = false
         
         for element in FavoriteCity.all {
-            if element.nameFavoriteCity == City.shared.city[indexPath.row].city {
+            if element.nameFavoriteCity == citys[indexPath.row].city {
                 isFavorite = true
             }
         }
         
-        cell.configure(title: City.shared.city[indexPath.row].city, subtitle: City.shared.city[indexPath.row].country, imageName:City.shared.city[indexPath.row].country,isFavorite: isFavorite)
+        cell.configure(title: citys[indexPath.row].city, subtitle: citys[indexPath.row].country, imageName:citys[indexPath.row].country,isFavorite: isFavorite)
         return cell
     }
     
