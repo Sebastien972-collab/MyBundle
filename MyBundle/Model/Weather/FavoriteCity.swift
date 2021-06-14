@@ -4,7 +4,6 @@
 //
 //  Created by DAGUIN Sébastien on 03/05/2021.
 //
-
 import Foundation
 import CoreData
 class FavoriteCity : NSManagedObject {

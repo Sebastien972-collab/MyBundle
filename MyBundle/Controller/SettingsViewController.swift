@@ -11,13 +11,22 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var deviseSegmentedControls: UISegmentedControl!
     @IBOutlet weak var langageSegmentedControls: UISegmentedControl!
     var row = 0
-    
+    let userDefault = UserDefaults.standard
     var citys =  City.shared.city
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !userDefault.bool(forKey: "fromEur") {
+            deviseSegmentedControls.selectedSegmentIndex = 1
+        }
         
     }
     @IBAction func tappedSaveSettings(_ sender: Any) {
+        let deviceSelection = deviseSegmentedControls.selectedSegmentIndex
+        if deviceSelection == 0 {
+            userDefault.set(true, forKey: "fromEur")
+        }else {
+            userDefault.set(false, forKey: "fromEur")
+        }
     }
     
 }

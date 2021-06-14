@@ -19,7 +19,7 @@ class ExchangeRateViewController: UIViewController {
     @IBOutlet weak private var changeCurrencyButton: UIButton!
     private var currencys = Currency.currencys
     private var rowCurrency = 0
-    private var fromEur = true {
+    private var fromEur = Utils.isFromEur() {
         didSet{
             guard let fromCurrency = fromCurrencyLabel.text else {
                 return
@@ -42,8 +42,15 @@ class ExchangeRateViewController: UIViewController {
     override internal func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.isHidden = true
+       
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        if !Utils.isFromEur() {
+            fromEur = false
+        }else {
+            fromEur = true
+        }
+    }
     
     @IBAction private func tappedExchangeButton(_ sender: Any) {
         Utils.toggleActivityIndicator(button: exchangeButton, show: true, activityIndicator: activityIndicator)
