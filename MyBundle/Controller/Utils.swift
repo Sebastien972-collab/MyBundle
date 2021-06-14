@@ -61,9 +61,6 @@ struct Utils {
     }
     static func isFromEur() -> Bool {
        let userDefault = UserDefaults.standard
-//       guard let fromEur = userDefault.bool(forKey: "fromEur")   else {
-//           return true
-//       }
        return userDefault.bool(forKey: "fromEur")
    }
 }

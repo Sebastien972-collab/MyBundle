@@ -16,5 +16,7 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
     }
     @IBAction func tappedTranslateButtton(_ sender: Any) {
+        guard let textToTranslate = fromExpression.text else { return  }
+        print(textToTranslate)
     }
 }
