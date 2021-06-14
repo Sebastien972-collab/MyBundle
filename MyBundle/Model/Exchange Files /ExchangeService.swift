@@ -31,12 +31,9 @@ class ExchangeService {
                     return
                 }
                 let decoder = JSONDecoder()
-                guard let json = String(data: data, encoding: .utf8) else{
-                    return
-                }
-                print("lE JSONNNN ::: >>>>>>>>>>>>> \(json)")
+                print("lE JSONNNN ::: >>>>>>>>>>>>> \(data)")
                 do {
-                    let product = try decoder.decode(RateJsonDecode.self, from: json.data(using: .utf8)!)
+                    let product = try decoder.decode(RateJsonDecode.self, from: data)
                     print(product.rates[toCurrency]!)
                     print("Le decodage est passe")
                     print("La base \(product.base)")

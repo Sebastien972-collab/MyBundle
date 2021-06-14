@@ -18,14 +18,7 @@ struct Utils {
         print("Tentative de uptdate la vue ")
         print(description)
         tempsLabel.text = temps
-        descriptionLabel.text = cleanDescription(description: description)
-    }
-    static func cleanDescription(description : String) -> String {
-        var descriptionArray = Array(description)
-        descriptionArray.remove(at: description.count - 1)
-        descriptionArray.remove(at: 0)
-        descriptionArray[0] = descriptionArray[0].uppercased().first!
-        return String(descriptionArray)
+        descriptionLabel.text = description
     }
     static func uptdateTemperatureImage(temps : Double,temperatureImageView : UIImageView) {
         switch temps {

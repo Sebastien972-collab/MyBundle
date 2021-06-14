@@ -29,17 +29,13 @@ class CityWeatherViewController: UIViewController {
         
     }
     private func showWeather() {
-        WeatherService.shared.getWeather(city: city, fromCountry: country) { success, error,  weather , description  in
-            guard success, error == nil , let weather = weather, let description = description else {
+        WeatherService.shared.getWeather(city: city, fromCountry: country) { success, error,  weather  in
+            guard success, error == nil , let weather = weather else {
                 return self.present(Utils.presentAlert(message: error!.localizedDescription), animated: true, completion: nil)
             }
-            guard let temp = weather.main["temp"] else {
-                self.present(Utils.presentAlert(message: "Error temp not found "), animated: true, completion: nil)
-                return
-            }
-            let tempsToShow = Double(round(temp))
+            let tempsToShow = Double(round(weather.main.temp))
             Utils.uptdateTemperatureImage(temps: tempsToShow, temperatureImageView: self.temperatureImageView)
-            Utils.uptdateView(temps: "\(Int(tempsToShow))°", description: description, tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
+            Utils.uptdateView(temps: "\(Int(tempsToShow))°", description: weather.weather[0].description, tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
             self.imageCityImageView.image = UIImage(named: self.country )
         }
     }
