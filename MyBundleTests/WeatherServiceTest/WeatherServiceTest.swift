@@ -15,11 +15,10 @@ class WeatherServiceTest: XCTestCase {
         let expactation = XCTestExpectation(description: "Wait for queue change")
         
         
-        weatheService.getWeather(city: "", fromCountry: "") { success, error, weather, description in
+        weatheService.getWeather(city: "", fromCountry: "") { success, weather, error in
             XCTAssertFalse(success)
             XCTAssertNotNil(error)
-            XCTAssertNil(weather)
-            XCTAssertNil(description)
+            XCTAssertNil(error)
             expactation.fulfill()
         }
         
@@ -30,11 +29,10 @@ class WeatherServiceTest: XCTestCase {
         let expactation = XCTestExpectation(description: "Wait for queue change")
         
         
-        weatheService.getWeather(city: "", fromCountry: "") { success, error, weather, description in
+        weatheService.getWeather(city: "", fromCountry: "") { success, weather, error in
             XCTAssertFalse(success)
             XCTAssertNotNil(error)
             XCTAssertNil(weather)
-            XCTAssertNil(description)
             expactation.fulfill()
         }
     }
@@ -44,11 +42,10 @@ class WeatherServiceTest: XCTestCase {
         let expactation = XCTestExpectation(description: "Wait for queue change")
         
         
-        weatheService.getWeather(city: "", fromCountry: "") { success, error, weather, description in
+        weatheService.getWeather(city: "", fromCountry: "") { success, weather, error  in
             XCTAssertFalse(success)
             XCTAssertNotNil(error)
             XCTAssertNil(weather)
-            XCTAssertNil(description)
             expactation.fulfill()
         }
         
@@ -60,11 +57,10 @@ class WeatherServiceTest: XCTestCase {
         let expactation = XCTestExpectation(description: "Wait for queue change")
         
         
-        weatheService.getWeather(city: "", fromCountry: "") { success, error, weather, description in
+        weatheService.getWeather(city: "", fromCountry: "") { success, weather, error in
             XCTAssertTrue(success)
             XCTAssertNil(error)
             XCTAssertNotNil(weather)
-            XCTAssertNotNil(description)
             expactation.fulfill()
         }
        

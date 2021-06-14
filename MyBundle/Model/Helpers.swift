@@ -23,16 +23,4 @@ struct Helpers {
         }
         return cityCleaned
     }
-    static func recup(json : String) -> String {
-        let arrayJson = json.split(separator: ",")
-        var description = " "
-        for (index, _) in arrayJson.enumerated() {
-            if arrayJson[index].contains("description") {
-                description = String(arrayJson[index])
-                let descriptionToReturn = description.split(separator: ":")
-                return String(descriptionToReturn[1])
-            }
-        }
-        return description
-    }
 }

@@ -6,12 +6,7 @@
 //
 
 import Foundation
-struct RateJsonDecode : Codable {
-    var base : String
-    var date : String
-    var rates : [String : Double]
-    
-}
+
 
 class ExchangeService {
     static var shared = ExchangeService()
@@ -21,7 +16,7 @@ class ExchangeService {
     init(session : URLSession) {
         self.session = session
     }
-      func getExchangeAmount(toCurrency: String, callback: @escaping (Bool, RateJsonDecode?, Error?) -> Void){
+      func getExchangeAmount(toCurrency: String, callback: @escaping (Bool, RateData?, Error?) -> Void){
         let baseUrl = URL(string: "http://data.fixer.io/api/latest?access_key=91d269752abd205689d4d4c31fff86c6&base=EUR&symbols=\(toCurrency)")!
         let request = URLRequest(url: baseUrl)
         let task = session.dataTask(with: request) { data, response , error in
@@ -31,13 +26,9 @@ class ExchangeService {
                     return
                 }
                 let decoder = JSONDecoder()
-                print("lE JSONNNN ::: >>>>>>>>>>>>> \(data)")
+
                 do {
-                    let product = try decoder.decode(RateJsonDecode.self, from: data)
-                    print(product.rates[toCurrency]!)
-                    print("Le decodage est passe")
-                    print("La base \(product.base)")
-                    print("Rates")
+                    let product = try decoder.decode(RateData.self, from: data)
                     callback(true, product , nil)
                 }catch {
                     callback(false,nil, error)
