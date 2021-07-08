@@ -21,6 +21,25 @@ struct Helpers {
             }
             cityCleaned = String(cityArray)
         }
-        return cityCleaned
+        return cityCleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    static func checkElementIsFavorite(cityName : String) -> Bool {
+        for city in FavoriteCity.all {
+            if city.nameFavoriteCity == cityName {
+                return true
+            }
+        }
+        return false
+    }
+    
+    static func roundedValue(value : Double) -> Double {
+        return Double(round(100 * value) / 100)
+    }
+    static func integerConvert(value : Double ) -> Int {
+        return Int(value)
+    }
+    static func createError(errorDescription : String?) -> ServiceError {
+        ServiceError(errorDescription: errorDescription ?? "Unknow Error")
+        
     }
 }

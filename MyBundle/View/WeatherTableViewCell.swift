@@ -8,22 +8,22 @@
 import UIKit
 
 class WeatherTableViewCell: UITableViewCell {
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subTitleLabel: UILabel!
-    @IBOutlet weak var goToWeatherCityButton: UIButton!
-    @IBOutlet weak var whiteView: UIView!
-    @IBOutlet weak var addToFavoris: UIImageView!
+    @IBOutlet weak private var iconImageView: UIImageView!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var subTitleLabel: UILabel!
+    @IBOutlet weak private var goToWeatherCityButton: UIButton!
+    @IBOutlet weak private var whiteView: UIView!
+    @IBOutlet weak private var addToFavoris: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    private func addShadow() {
-        whiteView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
-        whiteView.layer.shadowRadius = 2.0
-        whiteView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        whiteView.layer.shadowOpacity = 2.0
-    }
+//    private func addShadow() {
+//        whiteView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
+//        whiteView.layer.shadowRadius = 2.0
+//        whiteView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+//        whiteView.layer.shadowOpacity = 2.0
+//    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

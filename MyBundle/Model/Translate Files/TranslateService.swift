@@ -1,23 +1,26 @@
 //
-//  ExchangeService.swift
+//  TranslateService.swift
 //  MyBundle
 //
-//  Created by DAGUIN Sébastien on 27/04/2021.
+//  Created by DAGUIN Sébastien on 05/07/2021.
 //
 
 import Foundation
+let apiKey = "AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc"
 
-
-class ExchangeService {
-    static var shared = ExchangeService()
+class TranslationService {
+    static var shared = TranslationService()
     private init(){}
     private var task : URLSessionTask?
     private var session = URLSession(configuration: .default)
     init(session : URLSession) {
         self.session = session
     }
-      func getExchangeAmount(toCurrency: String, callback: @escaping (Bool, RateData?, Error?) -> Void){
-        let baseUrl = URL(string: "http://data.fixer.io/api/latest?access_key=91d269752abd205689d4d4c31fff86c6&base=EUR&symbols=\(toCurrency)")!
+    func getTranslatedText(text : String, toLangage: Language, callback: @escaping (Bool, TextTranslated?, Error?) -> Void){
+        let clearText = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+      
+        let baseUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&target=\(toLangage.bcpcode47)")!
+        print(baseUrl)
         let request = URLRequest(url: baseUrl)
         let task = session.dataTask(with: request) { data, response , error in
             DispatchQueue.main.async {
@@ -28,8 +31,8 @@ class ExchangeService {
                 let decoder = JSONDecoder()
 
                 do {
-                    let product = try decoder.decode(RateData.self, from: data)
-                    callback(true, product , nil)
+                    let product = try decoder.decode(TranslateData.self, from: data)
+                    callback(true, product.data.translations[0] , nil)
                 }catch {
                     callback(false,nil, error)
                 }
@@ -40,12 +43,5 @@ class ExchangeService {
             
         }
         task.resume()
-    }
-    func reverseRate(rate : Double) -> Double {
-        return  1 / rate
-    }
-    func convertAmount(amount : Double, rate : Double) -> Double {
-        let amountConvert = amount * rate
-        return Helpers.roundedValue(value: amountConvert)
     }
 }

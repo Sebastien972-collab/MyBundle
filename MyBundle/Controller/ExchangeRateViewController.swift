@@ -19,6 +19,7 @@ class ExchangeRateViewController: UIViewController {
     @IBOutlet weak private var changeCurrencyButton: UIButton!
     private var currencys = Currency.currencys
     private var rowCurrency = 0
+    private let exchangeService = ExchangeService.shared
     private var fromEur = Utils.isFromEur() {
         didSet{
             guard let fromCurrency = fromCurrencyLabel.text else {
@@ -62,7 +63,7 @@ class ExchangeRateViewController: UIViewController {
             }
             toCurrency = fromCurrency
         }
-        ExchangeService.shared.getExchangeAmount(toCurrency: toCurrency) { success, amountRate, error  in
+        exchangeService.getExchangeAmount(toCurrency: toCurrency) { success, amountRate, error  in
             Utils.toggleActivityIndicator(button: self.exchangeButton, show: false, activityIndicator: self.activityIndicator)
             guard success, error == nil, let amountRate = amountRate else {
                 return self.present(Utils.presentAlert(message: error?.localizedDescription ?? "Unknown error"), animated: true, completion: nil)
@@ -70,7 +71,6 @@ class ExchangeRateViewController: UIViewController {
             guard success else {
                 return self.present(Utils.presentAlert(message: "Exchange rate not found "), animated: true, completion: nil)
             }
-            print(amountRate.rates[toCurrency]!)
             self.rate = amountRate.rates[toCurrency]!
             self.uptdateView()
         }
@@ -84,16 +84,13 @@ class ExchangeRateViewController: UIViewController {
     
     private func uptdateView() {
         if !fromEur {
-            rate = 1 / rate
+            rate = exchangeService.reverseRate(rate: rate)
         }
-        rateChange.text = "\(Double(round(100 * rate) / 100))"
+        rateChange.text = "\(Helpers.roundedValue(value: rate))"
         guard let amountToCovert = Double(exchangeTextField.text!) else {
             return 
         }
-        let amountConvert = amountToCovert * rate
-        print(amountConvert)
-        exchangedAmountLabel.text = "\(Double(round(100 * amountConvert) / 100))"
-        print(Double(round(100 * amountConvert) / 100))
+        exchangedAmountLabel.text = "\(exchangeService.convertAmount(amount: amountToCovert, rate: rate))"
     }
 }
 extension ExchangeRateViewController : UIPickerViewDelegate, UIPickerViewDataSource {

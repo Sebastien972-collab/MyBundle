@@ -21,11 +21,19 @@ struct LanguageAvailable {
                                                 Language(bcpcode47: "ht", langage: "Haitian", script: .latin),
                                                 Language(bcpcode47: "it", langage: "Italien", script: .latin),
                                                 Language(bcpcode47: "la", langage: "Latin", script: .latin),
-                                                Language(bcpcode47: "en", langage: "Englis", script: .latin),
-                                                Language(bcpcode47: "es", langage: "Spanis", script: .latin),
+                                                Language(bcpcode47: "en", langage: "English", script: .latin),
+                                                Language(bcpcode47: "es", langage: "Spanish", script: .latin),
                                                 Language(bcpcode47: "ja", langage: "Japanese", script: .japanese)
                                                
                                                
 ]
+    static func detectLanguage(bcpcode47 : String) -> Language {
+        for language in LanguageAvailable.language{
+            if language.bcpcode47 == bcpcode47 {
+                return language
+            }
+        }
+        return LanguageAvailable.language[0]
+    }
     
 }

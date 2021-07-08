@@ -10,7 +10,6 @@ struct Language {
     let bcpcode47 : String
     let langage : String
     let script : Script
-    
 }
 enum Script {
     case latin,

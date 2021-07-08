@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController{
+class WeatherListViewController: UIViewController{
     @IBOutlet weak private var citysTableView: UITableView!
     @IBOutlet weak private var goToFavorisButton: UIButton!
     let citys = City.citys
@@ -23,7 +23,7 @@ class WeatherViewController: UIViewController{
         goToFavorisButton.isEnabled = !FavoriteCity.all.isEmpty
     }
 }
-extension WeatherViewController: UITableViewDelegate{
+extension WeatherListViewController: UITableViewDelegate{
     internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        performSegue(withIdentifier: "ShowWeatherCitySegue", sender: self)
     }
@@ -34,7 +34,7 @@ extension WeatherViewController: UITableViewDelegate{
         }
     }
 }
-extension WeatherViewController : UITableViewDataSource{
+extension WeatherListViewController : UITableViewDataSource{
     internal func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

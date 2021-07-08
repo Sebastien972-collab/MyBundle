@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController {
         }
         
     }
-    @IBAction func tappedSaveSettings(_ sender: Any) {
+    @IBAction private func tappedSaveSettings(_ sender: Any) {
         
         let deviceSelection = deviseSegmentedControls.selectedSegmentIndex
         if deviceSelection == 0 {
@@ -35,17 +35,17 @@ class SettingsViewController: UIViewController {
     
 }
 extension SettingsViewController : UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    internal func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return languages.count
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return languages[row].langage
     }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.row = row
     }
 

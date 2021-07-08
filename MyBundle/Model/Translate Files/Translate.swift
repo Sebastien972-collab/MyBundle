@@ -6,7 +6,14 @@
 //
 
 import Foundation
-struct TranslationAPI {
-    let detectedLangage : String
-    let translate : String
+struct TextTranslated : Decodable {
+    let translatedText : String
+    let detectedSourceLanguage : String
+}
+
+struct Translation : Decodable {
+    let translations : [TextTranslated]
+}
+struct TranslateData : Decodable{
+    let data : Translation
 }

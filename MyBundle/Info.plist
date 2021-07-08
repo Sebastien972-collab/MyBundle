@@ -76,12 +76,5 @@
 	<string>Veuillez acceptez pour afficher la meteo de votre position</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Veuillez acceptez pour afficher la meteo de votre position</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FiraSans-BlackItalic.ttf</string>
-		<string>FiraSans-Black.ttf</string>
-		<string>FiraSans-Regular.ttf</string>
-		<string>FiraSans-Light.ttf</string>
-	</array>
 </dict>
 </plist>

@@ -12,6 +12,8 @@ class FavoriteWeatherViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak private var descriptionLabel: UILabel!
     @IBOutlet weak private var favoriteContryPickerView: UIPickerView!
     @IBOutlet weak private var removeButton: UIButton!
+    let weatherService = WeatherService.shared
+    
     @IBOutlet weak private var temperatureImageView: UIImageView!
     private var favoriteCity = FavoriteCity.all {
         willSet {
@@ -60,13 +62,13 @@ class FavoriteWeatherViewController: UIViewController, UIPickerViewDelegate, UIP
         let indexToCity = favoriteContryPickerView.selectedRow(inComponent: 0)
         let toCity = FavoriteCity.all[indexToCity].nameFavoriteCity
         let toCountry = FavoriteCity.all[indexToCity].nameOfFlag
-        WeatherService.shared.getWeather(city: toCity!, fromCountry: toCountry!) { success, weather,  error in
+        weatherService.getWeather(city: toCity!, fromCountry: toCountry!) { success, weather,  error in
             guard success, error == nil, let weather = weather else {
                 return self.present(Utils.presentAlert(message: error!.localizedDescription), animated: true, completion: nil)
             }
-            let tempsToShow = Double(round(weather.main.temp))
-            Utils.uptdateTemperatureImage(temps: tempsToShow, temperatureImageView: self.temperatureImageView)
-            Utils.uptdateView(temps: "\(Int(tempsToShow))°", description: weather.weather[0].description.capitalized, tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
+            let tempsToShow = self.weatherService.tempsToShow(weather: weather)
+            Utils.uptdateTemperatureImage(temps: Double(tempsToShow), temperatureImageView: self.temperatureImageView)
+            Utils.uptdateView(temps: "\(tempsToShow)°", description: weather.weather[0].description.capitalized, tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
             self.imageCityImageView.image = UIImage(named: toCountry ?? "cloud")
         }
     }

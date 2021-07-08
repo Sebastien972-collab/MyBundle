@@ -38,5 +38,9 @@ class WeatherService {
         }
         task.resume()
     }
+    func tempsToShow(weather : WeatherData) -> Int {
+        let tempsToShow = Double(round(weather.main.temp))
+        return Helpers.integerConvert(value: tempsToShow)
+    }
     
 }

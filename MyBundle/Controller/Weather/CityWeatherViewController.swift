@@ -16,13 +16,14 @@ class CityWeatherViewController: UIViewController {
     @IBOutlet weak private var imageCityImageView: UIImageView!
     internal var city = " "
     internal var country = " "
+    let weatherService = WeatherService.shared
     
    
     override func viewDidLoad() {
         super.viewDidLoad()
         showWeather()
         cityNavigationItem.title = city
-        if checkElementIsFavorite(cityName: city){
+        if Helpers.checkElementIsFavorite(cityName: city){
             Utils.diseableButtonWithAnimation(animation: false, button: addFavorisButton)
             
         }
@@ -33,9 +34,9 @@ class CityWeatherViewController: UIViewController {
             guard success, error == nil , let weather = weather else {
                 return self.present(Utils.presentAlert(message: error?.localizedDescription ?? "Sorry Unknow Error"), animated: true, completion: nil)
             }
-            let tempsToShow = Double(round(weather.main.temp))
-            Utils.uptdateTemperatureImage(temps: tempsToShow, temperatureImageView: self.temperatureImageView)
-            Utils.uptdateView(temps: "\(Int(tempsToShow))°", description: weather.weather[0].description.capitalized , tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
+            let tempsToShow = self.weatherService.tempsToShow(weather: weather)
+            Utils.uptdateTemperatureImage(temps: Double(tempsToShow), temperatureImageView: self.temperatureImageView)
+            Utils.uptdateView(temps: "\(tempsToShow)°", description: weather.weather[0].description.capitalized , tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
             self.imageCityImageView.image = UIImage(named: self.country )
         }
     }
@@ -44,19 +45,12 @@ class CityWeatherViewController: UIViewController {
         favoriteCity.nameOfFlag = country
         favoriteCity.nameFavoriteCity = city
         try? AppDelegate.viewContext.save()
-        if checkElementIsFavorite(cityName: city){
+        if Helpers.checkElementIsFavorite(cityName: city){
             Utils.diseableButtonWithAnimation(animation: true, button: addFavorisButton)
             
         }
     }
-    private func checkElementIsFavorite(cityName : String) -> Bool {
-        for city in FavoriteCity.all {
-            if city.nameFavoriteCity == cityName {
-                return true
-            }
-        }
-        return false
-    }
+    
     
     
 }
