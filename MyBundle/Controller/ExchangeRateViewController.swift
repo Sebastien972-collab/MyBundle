@@ -54,22 +54,22 @@ class ExchangeRateViewController: UIViewController {
     }
     
     @IBAction private func tappedExchangeButton(_ sender: Any) {
-        Utils.toggleActivityIndicator(button: exchangeButton, show: true, activityIndicator: activityIndicator)
+        KitUtils.toggleActivityIndicator(button: exchangeButton, show: true, activityIndicator: activityIndicator)
         let indexToCurrency = currencyPickerView.selectedRow(inComponent: 0)
         var toCurrency = currencys[indexToCurrency]
         if !fromEur {
             guard let fromCurrency = fromCurrencyLabel.text else {
-                return present(Utils.presentAlert(message: "Can't find from currency"), animated: true, completion: nil)
+                return present(KitUtils.presentAlert(message: "Can't find from currency"), animated: true, completion: nil)
             }
             toCurrency = fromCurrency
         }
         exchangeService.getExchangeAmount(toCurrency: toCurrency) { success, amountRate, error  in
-            Utils.toggleActivityIndicator(button: self.exchangeButton, show: false, activityIndicator: self.activityIndicator)
+            KitUtils.toggleActivityIndicator(button: self.exchangeButton, show: false, activityIndicator: self.activityIndicator)
             guard success, error == nil, let amountRate = amountRate else {
-                return self.present(Utils.presentAlert(message: error?.localizedDescription ?? "Unknown error"), animated: true, completion: nil)
+                return self.present(KitUtils.presentAlert(message: error?.localizedDescription ?? "Unknown error"), animated: true, completion: nil)
             }
             guard success else {
-                return self.present(Utils.presentAlert(message: "Exchange rate not found "), animated: true, completion: nil)
+                return self.present(KitUtils.presentAlert(message: "Exchange rate not found "), animated: true, completion: nil)
             }
             self.rate = amountRate.rates[toCurrency]!
             self.uptdateView()
@@ -84,13 +84,13 @@ class ExchangeRateViewController: UIViewController {
     
     private func uptdateView() {
         if !fromEur {
-            rate = exchangeService.reverseRate(rate: rate)
+            rate = ExchangeUtils.reverseRate(rate: rate)
         }
-        rateChange.text = "\(Helpers.roundedValue(value: rate))"
+        rateChange.text = "\(KitSdHelpers.roundedValue(value: rate))"
         guard let amountToCovert = Double(exchangeTextField.text!) else {
             return 
         }
-        exchangedAmountLabel.text = "\(exchangeService.convertAmount(amount: amountToCovert, rate: rate))"
+        exchangedAmountLabel.text = "\(ExchangeUtils.convertAmount(amount: amountToCovert, rate: rate))"
     }
 }
 extension ExchangeRateViewController : UIPickerViewDelegate, UIPickerViewDataSource {

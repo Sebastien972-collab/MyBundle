@@ -41,11 +41,4 @@ class ExchangeService {
         }
         task.resume()
     }
-    func reverseRate(rate : Double) -> Double {
-        return  1 / rate
-    }
-    func convertAmount(amount : Double, rate : Double) -> Double {
-        let amountConvert = amount * rate
-        return Helpers.roundedValue(value: amountConvert)
-    }
 }

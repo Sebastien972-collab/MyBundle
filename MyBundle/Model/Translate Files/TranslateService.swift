@@ -36,11 +36,7 @@ class TranslationService {
                 }catch {
                     callback(false,nil, error)
                 }
-
-               
-                
             }
-            
         }
         task.resume()
     }

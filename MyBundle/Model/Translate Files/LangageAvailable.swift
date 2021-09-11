@@ -35,5 +35,13 @@ struct LanguageAvailable {
         }
         return LanguageAvailable.language[0]
     }
+    static func detectLanguage(nameLanguage : String) -> Language {
+        for language in LanguageAvailable.language{
+            if language.langage == nameLanguage {
+                return language
+            }
+        }
+        return LanguageAvailable.language[0]
+    }
     
 }

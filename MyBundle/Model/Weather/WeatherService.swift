@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 class WeatherService {
     static var shared = WeatherService()
     private init(){}
@@ -18,7 +19,7 @@ class WeatherService {
     }
     
     func getWeather(city : String, fromCountry: String, callback : @escaping (Bool, WeatherData?, Error?  ) -> Void) {
-        let cityCleaned = Helpers.clearSpaceUrl(city: city)
+        let cityCleaned = KitUtils.clearWhitespace(string: city)
         let baseUrl = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=\(cityCleaned),\(fromCountry)&APPID=1d0946f4656aca3e5708d246a3c7ba87&lang=fr&units=metric")!
         let request = URLRequest(url: baseUrl)
         let task = session.dataTask(with: request) { data, response, error in
@@ -38,9 +39,6 @@ class WeatherService {
         }
         task.resume()
     }
-    func tempsToShow(weather : WeatherData) -> Int {
-        let tempsToShow = Double(round(weather.main.temp))
-        return Helpers.integerConvert(value: tempsToShow)
-    }
+    
     
 }

@@ -9,11 +9,6 @@ import Foundation
 import UIKit
 
 struct Utils {
-    static func toggleActivityIndicator(button : UIButton, show: Bool,activityIndicator : UIActivityIndicatorView ) {
-        button.isHidden = show
-        activityIndicator.isHidden = !show
-        activityIndicator.startAnimating()
-    }
     static func uptdateView(temps : String, description : String,tempsLabel: UILabel, descriptionLabel : UILabel ) {
         print("Tentative de uptdate la vue ")
         print(description)
@@ -32,16 +27,10 @@ struct Utils {
             break
         }
     }
-    static func presentAlert(message : String) -> UIAlertController {
-        let alertVc = UIAlertController(title: "Error", message: message , preferredStyle: .alert)
-        alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        return alertVc
-    }
     static private func disableButton(button : UIButton) {
         button.isEnabled = false
         button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
     }
-    
     static func diseableButtonWithAnimation(animation : Bool, button : UIButton) {
         if animation {
             UIView.animate(withDuration: 1.5) {

@@ -21,6 +21,8 @@ class WeatherListViewController: UIViewController{
         super.viewDidAppear(true)
         citysTableView.reloadData()
         goToFavorisButton.isEnabled = !FavoriteCity.all.isEmpty
+        
+        
     }
 }
 extension WeatherListViewController: UITableViewDelegate{

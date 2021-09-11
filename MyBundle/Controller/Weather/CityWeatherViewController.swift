@@ -32,9 +32,9 @@ class CityWeatherViewController: UIViewController {
     private func showWeather() {
         WeatherService.shared.getWeather(city: city, fromCountry: country) { success, weather, error  in
             guard success, error == nil , let weather = weather else {
-                return self.present(Utils.presentAlert(message: error?.localizedDescription ?? "Sorry Unknow Error"), animated: true, completion: nil)
+                return self.present(KitUtils.presentAlert(message: error?.localizedDescription ?? "Sorry Unknow Error"), animated: true, completion: nil)
             }
-            let tempsToShow = self.weatherService.tempsToShow(weather: weather)
+            let tempsToShow = WeatherUtils.tempsToShow(weather: weather)
             Utils.uptdateTemperatureImage(temps: Double(tempsToShow), temperatureImageView: self.temperatureImageView)
             Utils.uptdateView(temps: "\(tempsToShow)°", description: weather.weather[0].description.capitalized , tempsLabel: self.temperatureLabel, descriptionLabel : self.descriptionLabel)
             self.imageCityImageView.image = UIImage(named: self.country )

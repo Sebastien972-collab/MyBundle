@@ -6,84 +6,66 @@
 //
 
 import UIKit
+
 class TranslateViewController: UIViewController {
-    @IBOutlet weak var fromLangageButton: UIButton!
-    @IBOutlet weak var toLangageButton: UIButton!
-    @IBOutlet weak var fromTextTextView: UITextView!
-    @IBOutlet weak var toTextTranslateLabel: UILabel!
-    @IBOutlet weak var translateButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var fromLangage = LanguageAvailable.language[0] {
-        didSet {
-            fromLangageButton.setTitle(fromLangage.langage, for: .normal)
-            hiddenLabel(true)
-        }
-    }
-    var toLangage = LanguageAvailable.language[0] {
-        didSet {
-            toLangageButton.setTitle(toLangage.langage, for: .normal)
-            hiddenLabel(true)
-        }
-    }
+    
+    @IBOutlet weak private var fromLanguageLabel: UILabel!
+    @IBOutlet weak private var fromTextView: UITextView!
+    @IBOutlet weak private var translateLabel: UILabel!
+    @IBOutlet weak private var languagesPickerView: UPickerView!
+    @IBOutlet weak private var translateButton: UIButton!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    private var toLangage = LanguageAvailable.language[0]
+    private var languages = LanguageAvailable.language
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fromLangage = LanguageAvailable.language[9]
         toLangage = LanguageAvailable.language[14]
-       // hiddenLabel(true)
         activityIndicator.isHidden = true
         
     }
-    override func viewWillAppear(_ animated: Bool) {                                       
+    @IBAction func dissmissKeyboard(_ sender: Any) {
+        fromTextView.resignFirstResponder()
     }
-
-    @IBAction private func resignKeyboard(_ sender: Any) {
-        fromTextTextView.resignFirstResponder()
     
-    }
-    @IBAction private func tappedButtonLanguage(_ sender: Any) {
-        performSegue(withIdentifier: "showLanguage", sender: sender)
     
-    }
-    override internal func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? LangageTableViewController {
-            switch sender as? UIButton {
-            case toLangageButton:
-                destination.fromLanguage = false
-            default:
-                destination.fromLanguage = true
-            }
-        }
-    }
     @IBAction func tappedTranslateButton(_ sender: Any) {
-        Utils.toggleActivityIndicator(button: translateButton, show: true, activityIndicator: activityIndicator)
-        guard let fromText = fromTextTextView.text else {
-            Utils.toggleActivityIndicator(button: translateButton, show: false, activityIndicator: activityIndicator)
-            return present(Utils.presentAlert(message: "Vous devez entrer un text à traduire"), animated: true) {
-                Utils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
+        KitUtils.toggleActivityIndicator(button: translateButton, show: true, activityIndicator: activityIndicator)
+        guard let fromText = fromTextView.text else {
+            KitUtils.toggleActivityIndicator(button: translateButton, show: false, activityIndicator: activityIndicator)
+            return present(KitUtils.presentAlert(message: "Vous devez entrer un text à traduire"), animated: true) {
+                KitUtils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
             }
         }
         TranslationService.shared.getTranslatedText(text: fromText, toLangage: toLangage) { success, translatedText, error in
             guard success, let translatedText = translatedText, error == nil else {
-                return self.present(Utils.presentAlert(message: error?.localizedDescription ?? "Sorry unknow error"), animated: true) {
-                    Utils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
+                return self.present(KitUtils.presentAlert(message: error?.localizedDescription ?? "Sorry unknow error"), animated: true) {
+                    KitUtils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
                 }
             }
-            Utils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
-            self.toTextTranslateLabel.text = translatedText.translatedText
-            self.toLangage = LanguageAvailable.detectLanguage(bcpcode47: translatedText.detectedSourceLanguage)
-            self.hiddenLabel(false)
+            KitUtils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
+            self.translateLabel.text = translatedText.translatedText
+            self.fromLanguageLabel.text = LanguageAvailable.detectLanguage(bcpcode47: translatedText.detectedSourceLanguage).langage
             print("La réponse est ")
             print(translatedText.translatedText)
         }
     }
-    
-    
-    
-    private func hiddenLabel(_ isHidden : Bool) {
-//        UIView.animate(withDuration: 1) {
-//            self.toTextTranslateLabel.isHidden = isHidden
-//        }
+}
+extension TranslateViewController : UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
     }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        languages.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        languages[row].langage
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        toLangage = languages[row]
+    }
+    
 }

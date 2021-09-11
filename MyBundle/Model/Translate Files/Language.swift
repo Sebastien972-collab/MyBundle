@@ -33,5 +33,8 @@ enum Script {
          Greek,
          Gujarati,
          Hebrew
-
+    
+}
+enum LanguageTranslationDirection {
+    case fromLanguage, toLangage
 }
