@@ -12,7 +12,7 @@ class TranslateViewController: UIViewController {
     @IBOutlet weak private var fromLanguageLabel: UILabel!
     @IBOutlet weak private var fromTextView: UITextView!
     @IBOutlet weak private var translateLabel: UILabel!
-    @IBOutlet weak private var languagesPickerView: UPickerView!
+    @IBOutlet weak private var languagesPickerView: UIPickerView!
     @IBOutlet weak private var translateButton: UIButton!
     @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     private var toLangage = LanguageAvailable.language[0]
