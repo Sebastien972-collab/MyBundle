@@ -8,7 +8,7 @@
 import Foundation
 struct TextTranslated : Decodable {
     let translatedText : String
-    let detectedSourceLanguage : String
+    let detectedSourceLanguage : String?
 }
 
 struct Translation : Decodable {

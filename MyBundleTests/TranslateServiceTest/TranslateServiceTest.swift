@@ -11,7 +11,7 @@ class TranslateServiceTest: XCTestCase {
     
     func testGetTextToTranslatePostFailed() {
         let translateService = TranslationService(session: URLSessionFake(data: nil, response: nil, responseError: FakeTranslateService.error))
-        translateService.getTranslatedText(text: "", toLangage: LanguageAvailable.language[0]) { success, textTranslated, error in
+        translateService.getTranslatedText(source: <#Language#>, text: "", toLangage: LanguageAvailable.language[0]) { success, textTranslated, error in
             XCTAssertFalse(success)
             XCTAssertNil(textTranslated)
             XCTAssertNotNil(error)

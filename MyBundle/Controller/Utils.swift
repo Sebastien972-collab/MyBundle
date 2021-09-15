@@ -41,9 +41,5 @@ struct Utils {
             disableButton(button: button)
         }
     }
-    static func isFromEur() -> Bool {
-       let userDefault = UserDefaults.standard
-       return userDefault.bool(forKey: "fromEur")
-   }
 }
 

@@ -20,7 +20,7 @@ class ExchangeRateViewController: UIViewController {
     private var currencys = Currency.currencys
     private var rowCurrency = 0
     private let exchangeService = ExchangeService.shared
-    private var fromEur = Utils.isFromEur() {
+    private var fromEur = true {
         didSet{
             guard let fromCurrency = fromCurrencyLabel.text else {
                 return
@@ -45,14 +45,6 @@ class ExchangeRateViewController: UIViewController {
         activityIndicator.isHidden = true
        
     }
-    override func viewWillAppear(_ animated: Bool) {
-        if !Utils.isFromEur() {
-            fromEur = false
-        }else {
-            fromEur = true
-        }
-    }
-    
     @IBAction private func tappedExchangeButton(_ sender: Any) {
         KitUtils.toggleActivityIndicator(button: exchangeButton, show: true, activityIndicator: activityIndicator)
         let indexToCurrency = currencyPickerView.selectedRow(inComponent: 0)

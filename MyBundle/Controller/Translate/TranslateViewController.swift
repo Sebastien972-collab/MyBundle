@@ -51,13 +51,13 @@ class TranslateViewController: UIViewController {
             }
             KitUtils.toggleActivityIndicator(button: self.translateButton, show: false, activityIndicator: self.activityIndicator)
             self.translateLabel.text = translatedText.translatedText
-            let languagesFilter = self.fromLanguages.firstIndex { language in
-                return language.bcpcode47 == translatedText.detectedSourceLanguage
+            if self.fromLangage.script ==  .auto {
+                let languagesFilter = self.fromLanguages.firstIndex { language in
+                    return language.bcpcode47 == translatedText.detectedSourceLanguage
+                }
+                self.fromLangagePickerView.selectRow(languagesFilter ?? 0, inComponent: 0, animated: true)
+                
             }
-            if let languagesFilter = languagesFilter {
-                self.fromLangagePickerView.selectRow(languagesFilter, inComponent: 0, animated: true)
-            }
-           
             print("La réponse est ")
             print(translatedText.translatedText)
         }

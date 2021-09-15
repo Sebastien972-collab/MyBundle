@@ -22,7 +22,7 @@ class TranslationService {
             if source.script == .auto  {
                 return "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&target=\(toLangage.bcpcode47)"
             }else {
-                return "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&source=\(source.bcpcode47)&target=\(toLangage.bcpcode47)"
+                return "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&target=\(toLangage.bcpcode47)&source=\(source.bcpcode47)"
             }
         }
         
