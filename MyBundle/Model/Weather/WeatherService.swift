@@ -19,17 +19,16 @@ class WeatherService {
     }
     
     func getWeather(city : String, fromCountry: String, callback : @escaping (Bool, WeatherData?, Error?  ) -> Void) {
-        let cityCleaned = KitUtils.clearWhitespace(string: city)
-        let baseUrl = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=\(cityCleaned),\(fromCountry)&APPID=1d0946f4656aca3e5708d246a3c7ba87&lang=fr&units=metric")!
+        guard let cityCleaned = city.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return callback(false, nil, nil) }
+        let baseUrl = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=\(cityCleaned.utf8),\(fromCountry.utf8)&APPID=1d0946f4656aca3e5708d246a3c7ba87&lang=fr&units=metric")!
         let request = URLRequest(url: baseUrl)
         let task = session.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 guard let data = data, error == nil, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                     return callback(false, nil, error)
                 }
-        
-                let decoder = JSONDecoder()
                 do {
+                    let decoder = JSONDecoder()
                     let product = try decoder.decode(WeatherData.self, from: data)
                     callback(true, product, nil)
                 } catch  {

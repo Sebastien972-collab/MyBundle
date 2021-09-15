@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,6 +46,7 @@
 		8BCF0B092638475200FE35C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BCF0B082638475200FE35C1 /* Assets.xcassets */; };
 		8BCF0B0C2638475200FE35C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BCF0B0A2638475200FE35C1 /* LaunchScreen.storyboard */; };
 		8BE015222695DB5200B10853 /* LanguageTabViewCeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE015212695DB5200B10853 /* LanguageTabViewCeTableViewCell.swift */; };
+		8BE504F726F1F7FE004EBB45 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE504F626F1F7FE004EBB45 /* UIViewExtension.swift */; };
 		8BE54DC62672626900618E45 /* FakeExchangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54DC52672626900618E45 /* FakeExchangeService.swift */; };
 		8BE54DC8267262D000618E45 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE54DC7267262D000618E45 /* Helpers.swift */; };
 		8BE54DCC2672641A00618E45 /* FakeExchangeData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BE54DCB2672641A00618E45 /* FakeExchangeData.json */; };
@@ -107,6 +108,7 @@
 		8BCF0B0B2638475200FE35C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BCF0B0D2638475200FE35C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BE015212695DB5200B10853 /* LanguageTabViewCeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTabViewCeTableViewCell.swift; sourceTree = "<group>"; };
+		8BE504F626F1F7FE004EBB45 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		8BE54DC52672626900618E45 /* FakeExchangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeExchangeService.swift; sourceTree = "<group>"; };
 		8BE54DC7267262D000618E45 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		8BE54DCB2672641A00618E45 /* FakeExchangeData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FakeExchangeData.json; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		8BCF0B142638476800FE35C1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8BE504F526F1F7D4004EBB45 /* Extension */,
 				8BCF0B0A2638475200FE35C1 /* LaunchScreen.storyboard */,
 				8BCF0B052638474D00FE35C1 /* Main.storyboard */,
 				8BE015212695DB5200B10853 /* LanguageTabViewCeTableViewCell.swift */,
@@ -284,6 +287,14 @@
 				8B6B68802638623600D416AA /* TranslateViewController.swift */,
 			);
 			path = Translate;
+			sourceTree = "<group>";
+		};
+		8BE504F526F1F7D4004EBB45 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8BE504F626F1F7FE004EBB45 /* UIViewExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		8BE54DC32672617E00618E45 /* WeatherServiceTest */ = {
@@ -375,7 +386,6 @@
 			);
 			mainGroup = 8BCF0AF32638474D00FE35C1;
 			packageReferences = (
-				8B1F0868269DEA3F001483F7 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 8BCF0AFD2638474D00FE35C1 /* Products */;
 			projectDirPath = "";
@@ -442,6 +452,7 @@
 				8BBDC689263AC89200765DA3 /* WeatherService.swift in Sources */,
 				8B6B687F263861DF00D416AA /* ExchangeRateViewController.swift in Sources */,
 				8B47B6CA2639C585004E0DC6 /* CurrencyAvailable.swift in Sources */,
+				8BE504F726F1F7FE004EBB45 /* UIViewExtension.swift in Sources */,
 				8B6B68832638626D00D416AA /* WeatherListViewController.swift in Sources */,
 				8B48C477263879B000B9F5CA /* ExchangeService.swift in Sources */,
 				8BBDC68B263AC8AC00765DA3 /* CountryAvailable.swift in Sources */,
@@ -645,17 +656,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		8B1F0868269DEA3F001483F7 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCVersionGroup section */
 		8BA7E98826401E1900A21530 /* MyBundle.xcdatamodeld */ = {

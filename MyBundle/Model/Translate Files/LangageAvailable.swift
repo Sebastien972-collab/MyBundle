@@ -7,7 +7,8 @@
 
 import Foundation
 struct LanguageAvailable {
-    static let language : [Language] = [Language(bcpcode47: "af", langage: "Afrikaans", script: .latin),
+    static let language : [Language] = [Language(bcpcode47: "", langage: "Auto", script: .auto),
+                                        Language(bcpcode47: "af", langage: "Afrikaans", script: .latin),
                                                 Language(bcpcode47: "ar", langage: "Arabic", script: .arabic),
                                                 Language(bcpcode47: "ar-Latn ", langage: "Arabic", script: .latin),
                                                 Language(bcpcode47: "be", langage: "Belarusian", script: .cyrillic),

@@ -16,10 +16,19 @@ class TranslationService {
     init(session : URLSession) {
         self.session = session
     }
-    func getTranslatedText(text : String, toLangage: Language, callback: @escaping (Bool, TextTranslated?, Error?) -> Void){
+    func getTranslatedText(source : Language, text : String, toLangage: Language, callback: @escaping (Bool, TextTranslated?, Error?) -> Void){
         let clearText = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-      
-        let baseUrl = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&target=\(toLangage.bcpcode47)")!
+        var url : String {
+            if source.script == .auto  {
+                return "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&target=\(toLangage.bcpcode47)"
+            }else {
+                return "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBySClj_kCZ-48sPyc00CHTOMiMCQ4ZlKc&q=\(clearText.utf8)&source=\(source.bcpcode47)&target=\(toLangage.bcpcode47)"
+            }
+        }
+        
+        guard let baseUrl = URL(string: url) else {
+            return callback(false, nil, nil)
+        }
         print(baseUrl)
         let request = URLRequest(url: baseUrl)
         let task = session.dataTask(with: request) { data, response , error in

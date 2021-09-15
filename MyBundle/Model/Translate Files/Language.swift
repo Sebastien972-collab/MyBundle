@@ -32,7 +32,8 @@ enum Script {
          bengali,
          Greek,
          Gujarati,
-         Hebrew
+         Hebrew,
+         auto
     
 }
 enum LanguageTranslationDirection {
