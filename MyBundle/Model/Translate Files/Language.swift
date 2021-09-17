@@ -10,6 +10,10 @@ struct Language {
     let bcpcode47 : String
     let langage : String
     let script : Script
+    
+    static let defaultLanguage = Language(bcpcode47: "fr", langage: "French", script: .latin)
+    static let defaultAutoLanguage = Language(bcpcode47: "", langage: "Auto", script: .auto)
+    
 }
 enum Script {
     case latin,

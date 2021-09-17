@@ -32,4 +32,14 @@ class ExchangeServiceTest: XCTestCase {
             XCTAssertNotNil(error)
         }
     }
+    func testTheRateGiven() {
+        let exchangeService = ExchangeService(session : URLSessionFake(data: FakeExchangeService.correctExchange, response: URLResponseFake.responseOK, responseError: FakeExchangeService.error))
+        exchangeService.getExchangeAmount(toCurrency: "EUR") { success, rate, error in
+            XCTAssertTrue(success)
+            XCTAssertNotNil(rate)
+            XCTAssertEqual(rate?.base, "EUR")
+            XCTAssertEqual(rate?.rates["USD"], 1.21743)
+        }
+        
+    }
 }
